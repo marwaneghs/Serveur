@@ -3,27 +3,23 @@ package fr.efrei.server.domain;
 import jakarta.persistence.*;
 
 @Entity
-public class Item {
+public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
 
-    private Double price;
+    private Integer age;
 
-    public Item() {
+    public Student() {
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -33,20 +29,20 @@ public class Item {
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     @Override
     public String toString() {
-        return "Item{" +
+        return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", price=" + price +
+                ", age=" + age +
                 '}';
     }
 }
