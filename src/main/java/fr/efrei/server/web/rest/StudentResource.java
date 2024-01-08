@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/students")
@@ -22,6 +23,16 @@ public class StudentResource {
     public ResponseEntity<List<Student>> getAll() {
         List<Student> students = studentService.findAll();
         return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        try {
+            Student student = studentService.findById(id);
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("")

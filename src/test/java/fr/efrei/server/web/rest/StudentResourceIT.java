@@ -10,8 +10,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringBootTest
 @TestPropertySource(
@@ -47,5 +49,22 @@ public class StudentResourceIT {
 
         List<Student> studentList = studentRepository.findAll();
         assertThat(studentList).hasSize(databaseSizeBeforeCreate + 1);
+    }
+
+    @Test
+    @Transactional
+    void findByIdReturnsTheRelatedStudentData() {
+        Student student = new Student();
+        student.setName("Pierre");
+        studentRepository.save(student);
+
+        Student existingStudent = studentService.findById(student.getId());
+        assertThat(existingStudent).isNotNull();
+    }
+
+    @Test
+    @Transactional
+    void findByIdThrowsExceptionWhenStudentIsNotFound() {
+        assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> studentService.findById(999));
     }
 }
