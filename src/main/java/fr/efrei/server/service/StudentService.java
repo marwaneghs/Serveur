@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ItemService {
+public class StudentService {
 
-    public final StudentRepository itemRepository;
+    public final StudentRepository studentRepository;
 
-    public ItemService(StudentRepository itemRepository) {
-        this.itemRepository = itemRepository;
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     public List<Student> findAll() {
-        return itemRepository.findAll();
+        return studentRepository.findAll();
     }
 }
