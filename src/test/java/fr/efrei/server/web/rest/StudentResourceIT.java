@@ -67,4 +67,25 @@ public class StudentResourceIT {
     void findByIdThrowsExceptionWhenStudentIsNotFound() {
         assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> studentService.findById(999));
     }
+
+    @Test
+    @Transactional
+    void updateExistingStudent() {
+        Student student = new Student();
+        student.setName("Pierre");
+        studentRepository.save(student);
+
+        student.setName("Paul");
+        Student existingStudent = studentService.update(student.getId(), student);
+        assertThat(existingStudent).isEqualTo(student);
+    }
+
+    @Test
+    @Transactional
+    void updateThrowsAnExceptionWhenStudentIdIsNotFound() {
+        Student student = new Student();
+        student.setName("Pierre");
+
+        assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> studentService.update(999, student));
+    }
 }

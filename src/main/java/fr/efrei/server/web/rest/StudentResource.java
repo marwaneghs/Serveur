@@ -39,4 +39,14 @@ public class StudentResource {
     public Student create(@RequestBody Student student) {
         return studentService.save(student);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateStudent(@PathVariable Integer id, @RequestBody Student updatedStudent) {
+        try {
+            Student result = studentService.update(id, updatedStudent);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }

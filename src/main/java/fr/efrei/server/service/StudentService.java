@@ -29,5 +29,13 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
+    public Student update(Integer id, Student updatedStudent) {
+        Student existingStudent = findById(id);
+
+        existingStudent.setName(updatedStudent.getName());
+        existingStudent.setAge(updatedStudent.getAge());
+
+        return studentRepository.save(existingStudent);
+    }
 
 }
