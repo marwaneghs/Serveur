@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS item (
-    id INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS student (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
-    price DECIMAL(10, 2)
+    age INT
 );

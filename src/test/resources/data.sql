@@ -1,2 +1,2 @@
-DELETE FROM item;
+DELETE FROM student;
 
