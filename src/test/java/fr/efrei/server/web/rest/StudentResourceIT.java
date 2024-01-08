@@ -34,4 +34,18 @@ public class StudentResourceIT {
         List<Student> studentList = studentService.findAll();
         assertThat(studentList).hasSize(databaseSizeBeforeCreate + 1);
     }
+
+    @Test
+    @Transactional
+    void saveStudentIncrementsTheStudentsSizeOf1() {
+        int databaseSizeBeforeCreate = studentRepository.findAll().size();
+        assertThat(databaseSizeBeforeCreate).isEqualTo(0);
+
+        Student student = new Student();
+        student.setName("Pierre");
+        studentService.save(student);
+
+        List<Student> studentList = studentRepository.findAll();
+        assertThat(studentList).hasSize(databaseSizeBeforeCreate + 1);
+    }
 }
